@@ -15,7 +15,6 @@ class DashboardInitState extends DashboardState {
 class DashboardMainState extends DashboardState {
   final bool sendDataLoading;
   DashboardMainState({required this.sendDataLoading});
-
   List<Object?> get props => [ sendDataLoading, identityHashCode(this)];
 }
 

@@ -28,29 +28,38 @@ class Name {
 }
 
 class PassportDto{
-  final String? firstName;
+  final String firstName;
 
-  final String? lastName;
+  final String lastName;
 
   //yyyy-mm-dd
-  final DateTime? dateOfBirth;
+  final DateTime dateOfBirth;
 
-  final int? age;
+  final int age;
 
   final Gender? gender;
 
   //Example: 2015-12-31
-  final DateTime? issueDate;
+  final DateTime issueDate;
 
   //Example: 2025-12-31
-  final DateTime? expiryDate;
+  final DateTime expiryDate;
 
   //Example: 35201-0000000-0, ABC1234XYZ098
-  final String? documentNumber;
+  final String documentNumber;
 
-  final String? proof;
+  final String proof;
 
-  PassportDto({this.firstName, this.lastName, this.dateOfBirth, this.age, this.gender, this.issueDate, this.expiryDate, this.documentNumber, this.proof});
+  PassportDto({
+    required this.firstName,
+    required this.lastName,
+    required this.dateOfBirth,
+    required this.age,
+    this.gender,
+    required this.issueDate,
+    required this.expiryDate,
+    required this.documentNumber,
+    required this.proof});
 
   PassportDto copyWith({
     String? firstName,

@@ -22,12 +22,6 @@ class DashboardScreen extends StatelessWidget{
   final FocusNode ageFocusNode = new FocusNode();
   final TextEditingController documentNumberTextEditController = new TextEditingController();
   final FocusNode documentFocusNode = new FocusNode();
-  final ImagePicker picker = ImagePicker();
-  DateTime? dateOfBirth;
-  DateTime? issueDate;
-  DateTime? expiryDate;
-  String? imageBase64;
-
 
   @override
   Widget build(BuildContext cont) {
@@ -106,54 +100,40 @@ class DashboardScreen extends StatelessWidget{
                               new SizedBox(height: 10,),
                               new BaseOutlineButton(
                                   buttonText: "Date of Birth",
-                                  width: 300,
-                                  height: 40,
+                                  height: 48,
                                   onTap: (){
                                     selectDate(context , (DateTime selectedDate) {
-                                      dateOfBirth = selectedDate;
+                                      BlocProvider.of<DashBoardBloc>(context).add(SetBirthDayDateDashboardEvent(selectedDate));
                                     });
                                   },
                               ),
                               new SizedBox(height: 10,),
-                              new Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  new BaseOutlineButton(
-                                    buttonText: "Issue Date",
-                                    width: 130,
-                                    height: 40,
-                                    onTap: (){
-                                      selectDate(context, (DateTime selectedDate) {
-                                            issueDate = selectedDate;
-                                          }
-                                      );
-                                    },
-                                  ),
-                                  new SizedBox(width: 40,),
-                                  new BaseOutlineButton(
-                                    buttonText: "Expiry Date",
-                                    width: 130,
-                                    height: 40,
-                                    onTap: (){
-                                      selectDate(context, (DateTime selectedDate) {
-                                        expiryDate = selectedDate;
-                                      });
-                                    },
-                                  ),
-                                ],
+                              new BaseOutlineButton(
+                                buttonText: "Issue Date",
+                                height: 48,
+                                onTap: (){
+                                  selectDate(context, (DateTime selectedDate) {
+                                    BlocProvider.of<DashBoardBloc>(context).add(SetIssueDateDashboardEvent(selectedDate));
+                                  }
+                                  );
+                                },
+                              ),
+                              new SizedBox(height: 10,),
+                              new BaseOutlineButton(
+                                buttonText: "Expiry Date",
+                                height: 48,
+                                onTap: (){
+                                  selectDate(context, (DateTime selectedDate) {
+                                    BlocProvider.of<DashBoardBloc>(context).add(SetExpiryDatDashboardEvent(selectedDate));
+                                  });
+                                },
                               ),
                               new SizedBox(height: 20,),
                               new BaseOutlineButton(
-                                buttonText: "pick passport photo",
-                                width: 300,
-                                height: 40,
+                                buttonText: "Pick Passport Photo",
+                                height: 48,
                                 onTap: () async {
-                                  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-                                  if(image != null){
-                                    Uint8List imageBytes = await image.readAsBytes();
-                                    imageBase64 = base64.encode(imageBytes);
-                                  }
-
+                                  BlocProvider.of<DashBoardBloc>(context).add(LoadImageDashboardEvent());
                                 },
                               ),
                             ],
@@ -164,23 +144,12 @@ class DashboardScreen extends StatelessWidget{
                           width: 300,
                           height: 50,
                           onTap: (){
-                            firstNameTextEditController.text = "hossein";
-                            lastNameTextEditController.text = "sajadi";
-                            ageTextEditController.text = "27";
-                            documentNumberTextEditController.text = "121212";
-                            dateOfBirth = DateTime.now();
-                            issueDate = DateTime.now();
-                            expiryDate = DateTime.now();
                             BlocProvider.of<DashBoardBloc>(context).add(
                                 SendInfoDashboardEvent(
                                     firstName: firstNameTextEditController.text,
                                     lastName: lastNameTextEditController.text,
-                                    age: int.parse(ageTextEditController.text),
+                                    age: ageTextEditController.text,
                                     documentNumber: documentNumberTextEditController.text,
-                                    dateOfBirth: dateOfBirth!,
-                                    issueDate: issueDate!,
-                                    expiryDate: expiryDate!,
-                                    imageBase64: 'imageBase64'
                                 ));
                           },
                         )

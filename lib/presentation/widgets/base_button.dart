@@ -54,14 +54,12 @@ class BaseButton extends StatelessWidget{
 
 class BaseOutlineButton extends StatelessWidget{
   final String buttonText;
-  final double width;
   final double height;
   final bool loading;
   final BaseButtonOnTap onTap;
   final Color color;
   BaseOutlineButton({
     required this.buttonText,
-    required this.width,
     required this.height,
     this.loading = false,
     required this.onTap,
@@ -69,34 +67,39 @@ class BaseOutlineButton extends StatelessWidget{
   });
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-        onTap();
-      },
-      child: new Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(color: color, width: 2),
-        ),
-        child: Center(
-          child: !loading ? new Text(
-            buttonText,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.button!.copyWith(color: color),
-          ) : Padding(
-            padding: EdgeInsets.only(top:12, bottom: 12),
-            child: SizedBox(
-              height: 24,
-              width: 24,
-              child: CircularProgressIndicator(
-                color: Colours.NEUTRAL_1,
+    return Row(
+      children: [
+        Expanded(
+          child: InkWell(
+            onTap: (){
+              onTap();
+            },
+            child: new Container(
+              height: height,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: color, width: 2),
+              ),
+              child: Center(
+                child: !loading ? new Text(
+                  buttonText,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.button!.copyWith(color: color),
+                ) : Padding(
+                  padding: EdgeInsets.only(top:12, bottom: 12),
+                  child: SizedBox(
+                    height: 24,
+                    width: 24,
+                    child: CircularProgressIndicator(
+                      color: Colours.NEUTRAL_1,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 

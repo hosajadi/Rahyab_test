@@ -42,9 +42,9 @@ Future<void> errorAlert({required BuildContext context, required String header, 
           ),
           actionsAlignment: MainAxisAlignment.center,
           contentPadding: EdgeInsets.only(top:48, left: 48, right: 48, bottom: 56),
-          actionsPadding: EdgeInsets.only(bottom: 48),
+          actionsPadding: EdgeInsets.only(left: 48, right: 48,bottom: 48),
           actions: [
-            BaseOutlineButton(buttonText: "ok", width: 160, height: 48, onTap: (){
+            BaseOutlineButton(buttonText: "ok", height: 48, onTap: (){
               Navigator.pop(context);
             })
           ],
